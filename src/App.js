@@ -6,7 +6,8 @@ import Mypage from './pages/Mypage';
 import Gonggu from './pages/Gonggu';
 import Wishlist from './pages/Wishlist';
 import SignIn from './pages/SignIn';
-import Register from './pages/Register'; // Register 컴포넌트 import
+import Register from './pages/Register';
+import Upload from './pages/Upload';  // Upload 컴포넌트 import
 import './App.css';
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
         <Route path="/gonggu" element={<Gonggu />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/register" element={<Register />} /> {/* Register 페이지 라우트 추가 */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/upload" element={<Upload />} />  {/* Upload 페이지 라우트 추가 */}
       </Routes>
     </div>
   );

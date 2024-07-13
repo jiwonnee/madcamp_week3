@@ -1,8 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import icon from '../assets/icon.png';
 
 function SignIn() {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    // 로그인 로직을 추가할 수 있습니다.
+    // 입력값 검증이나 API 호출 등을 수행할 수 있습니다.
+    
+    // 로그인 성공 시 HomePage로 이동
+    navigate('/');
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-10">
       <div className="w-full max-w-xs">
@@ -36,7 +46,8 @@ function SignIn() {
           <div className="flex items-center justify-between w-full">
             <button
               className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
-              type="button">
+              type="button"
+              onClick={handleLogin}>
               로그인
             </button>
           </div>
