@@ -1,14 +1,14 @@
 import React from 'react';
-import main1 from '../assets/main1.jpeg';
-import main2 from '../assets/main2.jpeg';
-import main3 from '../assets/main3.jpeg';
-import main4 from '../assets/main4.jpeg';
+import main1 from '../assets/main1.png';
+import main2 from '../assets/main2.png';
+import main3 from '../assets/main3.png';
+import main4 from '../assets/main4.png';
 
 const items = [
-  { src: main1, text: '원하는 물품을 검색하세요!' },
-  { src: main2, text: '상품 탭을 눌러 상품 상세 정보와 참여 인원 확인하세요!' },
-  { src: main3, text: '원하는 상품이 있으면 공동구매에 참여하세요!' },
-  { src: main4, text: '원하는 상품이 없으면 직접 추가하세요!' }
+  { src: main1, text: '원하는 물품을 검색하세요' },
+  { src: main2, text: '상품 탭을 눌러 상품 상세 정보와 참여 인원 확인하세요' },
+  { src: main3, text: '원하는 상품이 있으면 공동구매에 참여하세요' },
+  { src: main4, text: '원하는 상품이 없으면 직접 추가하세요' }
 ];
 
 function HomePage() {
@@ -26,7 +26,7 @@ function HomePage() {
               <div className="bg-white shadow-2xl rounded-lg h-60 w-96 flex items-center justify-center transform transition-transform duration-300 hover:scale-105">
                 <img src={item.src} alt={`main${index + 1}`} className="h-full w-full object-cover rounded-lg" />
               </div>
-              <span className="mt-2 text-center">{item.text}</span>
+              <span className="mt-4 text-lg text-center">{item.text}</span>
             </div>
           ))}
         </div>
