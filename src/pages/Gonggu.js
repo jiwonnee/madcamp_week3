@@ -42,7 +42,7 @@ function Gonggu() {
   return (
     <div className="flex flex-col items-center p-10 bg-gray-100 min-h-screen">
       {toastMessage && (
-        <div className="fixed top-0 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded">
+        <div className="fixed top-28 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded shadow-lg z-50">
           {toastMessage}
         </div>
       )}

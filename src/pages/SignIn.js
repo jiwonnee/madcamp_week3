@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import api from '../services/api';
 import icon from '../assets/icon.png';
 
 function SignIn() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // 로그인 로직을 추가할 수 있습니다.
-    // 입력값 검증이나 API 호출 등을 수행할 수 있습니다.
-    
-    // 로그인 성공 시 HomePage로 이동
-    navigate('/');
+  const handleLogin = async () => {
+    try {
+      const response = await api.post('/users/login', { email, password });
+      console.log('Login successful:', response.data);
+      // 로그인 성공 시 홈 페이지로 이동
+      navigate('/');
+    } catch (error) {
+      console.error('Login error:', error.response?.data || error.message);
+      setError(error.response?.data?.error || '로그인에 실패했습니다.');
+    }
   };
 
   return (
@@ -20,7 +28,13 @@ function SignIn() {
         <h1 className="text-2xl font-bold text-center mb-4">
           로그인하고 가치있는 선택을 <br />시작해보세요
         </h1>
-        <form className="bg-white shadow-xl rounded px-8 pt-6 pb-8 mb-4">
+        <form
+          className="bg-white shadow-xl rounded px-8 pt-6 pb-8 mb-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
+        >
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
               이메일
@@ -30,6 +44,8 @@ function SignIn() {
               id="email"
               type="text"
               placeholder="example@gachi.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-6">
@@ -41,13 +57,16 @@ function SignIn() {
               id="password"
               type="password"
               placeholder="*****"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
           <div className="flex items-center justify-between w-full">
             <button
               className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
-              type="button"
-              onClick={handleLogin}>
+              type="submit"
+            >
               로그인
             </button>
           </div>
