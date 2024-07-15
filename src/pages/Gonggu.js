@@ -85,7 +85,7 @@ function Gonggu() {
                   <p className="text-sm text-gray-500">{item.promotion}</p>
                 </div>
               </div>
-              <button 
+              <button
                 className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-0.5 rounded mr-[16px]"
                 onClick={() => handleJoin(item.id)}
               >
@@ -100,3 +100,4 @@ function Gonggu() {
 }
 
 export default Gonggu;
+
