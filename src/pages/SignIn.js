@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import icon from '../assets/icon.png';
+import api from '../services/api'; // API 서비스 임포트
 
 
 function SignIn() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // 로그인 로직을 추가할 수 있습니다.
-    // 입력값 검증이나 API 호출 등을 수행할 수 있습니다.
+  const handleLogin = async () => {
+    try {
+      console.log("Attempting login with:", { email, password }); // 수정: 요청 전 로그 추가
+      const response = await api.post('/users/login', { email, password });
+      console.log('Login response:', response.data);
 
-    // 로그인 성공 시 HomePage로 이동
-    navigate('/');
+      // 로그인 성공 시 사용자 ID를 로컬 스토리지에 저장
+      localStorage.setItem('userId', response.data.userId);
+
+      // 로그인 성공 시 HomePage로 이동
+      navigate('/');
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('로그인에 실패했습니다.');
+    }
   };
 
   return (
@@ -31,6 +44,9 @@ function SignIn() {
               id="email"
               type="text"
               placeholder="example@gachi.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+
             />
           </div>
           <div className="mb-6">
@@ -42,6 +58,7 @@ function SignIn() {
               id="password"
               type="password"
               placeholder="*****"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="flex items-center justify-between w-full">

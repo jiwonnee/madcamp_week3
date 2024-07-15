@@ -8,6 +8,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
   const navigate = useNavigate();
 
   const handleRegister = async () => {
@@ -16,6 +17,7 @@ function Register() {
       console.log('User registered:', response.data);
 
       // 회원가입이 완료되면 토스트 메시지를 표시합니다.
+      setToastMessage('회원가입을 축하드립니다!');
       setShowToast(true);
 
       // 일정 시간 후에 토스트 메시지를 숨기고 로그인 페이지로 이동합니다.
@@ -25,23 +27,15 @@ function Register() {
       }, 2000); // 2초 후에 로그인 페이지로 이동
     } catch (error) {
       console.error('Signup error:', error);
-      alert('회원가입에 실패했습니다.');
+      setToastMessage(error.response.data.error || '회원가입에 실패했습니다.');
+      setShowToast(true);
+
+      setTimeout(() => {
+        setShowToast(false);
+      }, 2000);
     }
   };
 
-  // const handleRegister = () => {
-  //   // 여기에서 회원가입 로직을 처리합니다.
-  //   console.log('User registered:', { username, email, password });
-
-  //   // 회원가입이 완료되면 토스트 메시지를 표시합니다.
-  //   setShowToast(true);
-
-  //   // 일정 시간 후에 토스트 메시지를 숨기고 로그인 페이지로 이동합니다.
-  //   setTimeout(() => {
-  //     setShowToast(false);
-  //     navigate('/signin');
-  //   }, 2000); // 2초 후에 로그인 페이지로 이동
-  // };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-10">
@@ -100,7 +94,7 @@ function Register() {
         </form>
         {showToast && (
           <div className="fixed top-1/2 left-[45%] transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white p-4 rounded-lg shadow-lg animate-bounce z-50">
-            회원가입을 축하드립니다!
+            {toastMessage}
           </div>
         )}
       </div>
