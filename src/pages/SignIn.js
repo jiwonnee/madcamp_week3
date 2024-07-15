@@ -2,13 +2,14 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import icon from '../assets/icon.png';
 
+
 function SignIn() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
     // 로그인 로직을 추가할 수 있습니다.
     // 입력값 검증이나 API 호출 등을 수행할 수 있습니다.
-    
+
     // 로그인 성공 시 HomePage로 이동
     navigate('/');
   };

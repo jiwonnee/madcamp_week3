@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import icon from '../assets/icon.png';
+import api from '../services/api'; // API 서비스 임포트
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -9,19 +10,38 @@ function Register() {
   const [showToast, setShowToast] = useState(false);
   const navigate = useNavigate();
 
-  const handleRegister = () => {
-    // 여기에서 회원가입 로직을 처리합니다.
-    console.log('User registered:', { username, email, password });
+  const handleRegister = async () => {
+    try {
+      const response = await api.post('/users/signup', { username, email, password });
+      console.log('User registered:', response.data);
 
-    // 회원가입이 완료되면 토스트 메시지를 표시합니다.
-    setShowToast(true);
+      // 회원가입이 완료되면 토스트 메시지를 표시합니다.
+      setShowToast(true);
 
-    // 일정 시간 후에 토스트 메시지를 숨기고 로그인 페이지로 이동합니다.
-    setTimeout(() => {
-      setShowToast(false);
-      navigate('/signin');
-    }, 2000); // 2초 후에 로그인 페이지로 이동
+      // 일정 시간 후에 토스트 메시지를 숨기고 로그인 페이지로 이동합니다.
+      setTimeout(() => {
+        setShowToast(false);
+        navigate('/signin');
+      }, 2000); // 2초 후에 로그인 페이지로 이동
+    } catch (error) {
+      console.error('Signup error:', error);
+      alert('회원가입에 실패했습니다.');
+    }
   };
+
+  // const handleRegister = () => {
+  //   // 여기에서 회원가입 로직을 처리합니다.
+  //   console.log('User registered:', { username, email, password });
+
+  //   // 회원가입이 완료되면 토스트 메시지를 표시합니다.
+  //   setShowToast(true);
+
+  //   // 일정 시간 후에 토스트 메시지를 숨기고 로그인 페이지로 이동합니다.
+  //   setTimeout(() => {
+  //     setShowToast(false);
+  //     navigate('/signin');
+  //   }, 2000); // 2초 후에 로그인 페이지로 이동
+  // };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-10">
