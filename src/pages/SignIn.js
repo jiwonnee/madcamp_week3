@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import icon from '../assets/icon.png';
+import icon from '../assets/smile.png';
 import api from '../services/api'; // API 서비스 임포트
 
 
