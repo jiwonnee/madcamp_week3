@@ -5,7 +5,7 @@ import { ItemsContext } from '../context/ItemsContext';
 
 function Gonggu() {
   const navigate = useNavigate();
-  const { items = [], setItems } = useContext(ItemsContext);
+  const { items, setItems } = useContext(ItemsContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [isHovered, setIsHovered] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -19,7 +19,7 @@ function Gonggu() {
   );
 
   const handleJoin = (id) => {
-    setItems(items.map(item => {
+    setItems(prevItems => prevItems.map(item => {
       if (item.id === id) {
         if (item.currentPeople >= item.maxPeople) {
           setToastMessage('모집 인원을 초과하였습니다');

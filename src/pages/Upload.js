@@ -46,11 +46,11 @@ function Upload() {
 
   const handleCrawl = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/scrape', { url });
+      const response = await axios.post('http://localhost:5005/scrape', { url });
       setCrawledData(response.data);
     } catch (error) {
       console.error("There was an error fetching the data!", error);
-      setToastMessage('크롤링에 실패했습니다.');
+      setToastMessage('유효하지 않은 URL입니다.');
       setTimeout(() => setToastMessage(''), 3000);
     }
   };

@@ -21,7 +21,7 @@ export const ItemsProvider = ({ children }) => {
   };
 
   return (
-    <ItemsContext.Provider value={{ items, addItem }}>
+    <ItemsContext.Provider value={{ items, setItems, addItem }}>
       {children}
     </ItemsContext.Provider>
   );
