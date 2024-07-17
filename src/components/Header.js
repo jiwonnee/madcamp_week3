@@ -14,7 +14,6 @@ function Header({ isHomePage }) {
       <nav>
         <ul className="flex space-x-4 custom-font-3">
           <li><Link to="/gonggu">공구</Link></li>
-          <li><Link to="/wishlist">위시리스트</Link></li>
           <li><Link to="/mypage">Mypage</Link></li>
           <li><Link to="/signin" className="bg-purple-500 text-white px-4 py-2 rounded">로그인</Link></li>
         </ul>

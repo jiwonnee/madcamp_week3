@@ -5,7 +5,7 @@ import { ItemsContext } from '../context/ItemsContext';
 
 function Gonggu() {
   const navigate = useNavigate();
-  const { items, setItems } = useContext(ItemsContext);
+  const { items = [], setItems } = useContext(ItemsContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [isHovered, setIsHovered] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -15,7 +15,7 @@ function Gonggu() {
   };
 
   const filteredItems = items.filter(item =>
-    item.name.replace(/\s+/g, '').toLowerCase().includes(searchTerm.replace(/\s+/g, '').toLowerCase())
+    (item.name || '').replace(/\s+/g, '').toLowerCase().includes(searchTerm.replace(/\s+/g, '').toLowerCase())
   );
 
   const handleJoin = (id) => {
@@ -93,100 +93,3 @@ function Gonggu() {
 }
 
 export default Gonggu;
-
-// import React, { useContext, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { FaSearch } from 'react-icons/fa';
-// import { ItemsContext } from '../context/ItemsContext';
-
-// function Gonggu() {
-//   const navigate = useNavigate();
-//   const { items, setItems } = useContext(ItemsContext);
-//   const [searchTerm, setSearchTerm] = useState('');
-//   const [isHovered, setIsHovered] = useState(false);
-//   const [toastMessage, setToastMessage] = useState('');
-
-//   const handleSearch = (event) => {
-//     setSearchTerm(event.target.value);
-//   };
-
-//   const filteredItems = items.filter(item =>
-//     item.name.replace(/\s+/g, '').toLowerCase().includes(searchTerm.replace(/\s+/g, '').toLowerCase())
-//   );
-
-//   const handleJoin = (id) => {
-//     setItems(items.map(item => {
-//       if (item.id === id) {
-//         if (item.currentPeople >= item.maxPeople) {
-//           setToastMessage('모집 인원을 초과하였습니다');
-//           setTimeout(() => setToastMessage(''), 3000);
-//           return item;
-//         }
-//         return { ...item, currentPeople: item.currentPeople + 1 };
-//       }
-//       return item;
-//     }));
-//   };
-
-//   return (
-//     <div className="flex flex-col items-center p-10 bg-gradient-to-br from-gray-100 to-gray-300 min-h-screen">
-//       {toastMessage && (
-//         <div className="fixed top-28 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded shadow-lg z-50">
-//           {toastMessage}
-//         </div>
-//       )}
-//       <div className="w-full max-w-4xl mb-4">
-//         <div className="flex items-center space-x-4 mb-6">
-//           <div className="relative flex-1">
-//             <input
-//               type="text"
-//               placeholder="원하는 상품을 검색하세요"
-//               value={searchTerm}
-//               onChange={handleSearch}
-//               className="w-full p-3 pl-12 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-//             />
-//             <FaSearch className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-500" />
-//           </div>
-//           <button
-//             className="bg-purple-500 text-white p-3 rounded-lg shadow-md hover:bg-purple-600 transition-transform transform hover:scale-105"
-//             onMouseEnter={() => setIsHovered(true)}
-//             onMouseLeave={() => setIsHovered(false)}
-//             onClick={() => navigate('/upload')}
-//           >
-//             +
-//             {isHovered && (
-//               <span className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 bg-white border border-gray-300 rounded p-1 text-xs shadow-md whitespace-nowrap">
-//                 직접 올리기
-//               </span>
-//             )}
-//           </button>
-//         </div>
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//           {filteredItems.map(item => (
-//             <div key={item.id} className="flex flex-col justify-between p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transform transition-transform duration-300 hover:scale-105">
-//               <div className="flex flex-col items-center">
-//                 <img src={item.image} alt={`상품 ${item.id}`} className="w-36 h-36 rounded-lg object-contain mb-4" />
-//                 <div className="text-center">
-//                   <p className="text-lg font-bold text-gray-800 mb-2">{item.name}</p>
-//                   <p className="text-gray-700 mb-2">{item.price}</p>
-//                   <p className="text-gray-600 mb-2">모집 인원: {item.maxPeople}</p>
-//                   <p className="text-gray-600 mb-2">현재 인원: {item.currentPeople}</p>
-//                   <p className="text-sm text-gray-500">{item.promotion}</p>
-//                 </div>
-//               </div>
-//               <button
-//                 className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-//                 onClick={() => handleJoin(item.id)}
-//               >
-//                 참여하기
-//               </button>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Gonggu;
-

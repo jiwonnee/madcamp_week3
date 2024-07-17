@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaPaste } from 'react-icons/fa';
 import { ItemsContext } from '../context/ItemsContext';
+import axios from 'axios';
 import '../index.css';
 
 function Upload() {
@@ -43,15 +44,15 @@ function Upload() {
     setUrl(event.target.value);
   };
 
-  const handleCrawl = () => {
-    // Simulate crawling the URL and fetching data
-    // This is where you'd implement the actual crawling logic
-    const mockData = {
-      name: 'Mock Product Name',
-      price: '₩100,000',
-      image: 'https://via.placeholder.com/150', // Placeholder image URL
-    };
-    setCrawledData(mockData);
+  const handleCrawl = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/scrape', { url });
+      setCrawledData(response.data);
+    } catch (error) {
+      console.error("There was an error fetching the data!", error);
+      setToastMessage('크롤링에 실패했습니다.');
+      setTimeout(() => setToastMessage(''), 3000);
+    }
   };
 
   return (
@@ -90,10 +91,10 @@ function Upload() {
           <div className="mb-8 p-4 bg-white shadow rounded-lg">
             <h2 className="text-gray-700 text-lg font-bold mb-2">상품 정보</h2>
             <div className="flex items-center space-x-4">
-              <img src={crawledData.image} alt="상품 이미지" className="w-36 h-36 object-contain rounded" />
+              <img src={crawledData.image_url} alt="상품 이미지" className="w-36 h-36 object-contain rounded" />
               <div>
-                <p className="text-lg font-bold">{crawledData.name}</p>
-                <p className="text-gray-700 mt-2">{crawledData.price}</p>
+                <p className="text-lg font-bold">{crawledData.product_name}</p>
+                <p className="text-gray-700 mt-2">{crawledData.product_price}</p>
               </div>
             </div>
           </div>
