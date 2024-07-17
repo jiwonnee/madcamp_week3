@@ -14,7 +14,7 @@ function Register() {
   const handleRegister = async () => {
     try {
       const response = await api.post('/users/signup', { username, email, password });
-      console.log('User registered:', response.data);
+      console.log('User registered:', response?.data);
 
       // 회원가입이 완료되면 토스트 메시지를 표시합니다.
       setToastMessage('회원가입을 축하드립니다!');
@@ -27,7 +27,9 @@ function Register() {
       }, 2000); // 2초 후에 로그인 페이지로 이동
     } catch (error) {
       console.error('Signup error:', error);
-      setToastMessage(error.response.data.error || '회원가입에 실패했습니다.');
+
+      const errorMessage = error.response?.data?.error || '회원가입에 실패했습니다.';
+      setToastMessage(errorMessage);
       setShowToast(true);
 
       setTimeout(() => {
@@ -35,7 +37,6 @@ function Register() {
       }, 2000);
     }
   };
-
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-10">

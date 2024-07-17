@@ -46,7 +46,7 @@ function Upload() {
 
   const handleCrawl = async () => {
     try {
-      const response = await axios.post('http://localhost:5005/scrape', { url });
+      const response = await axios.post('http://localhost:5000/scrape', { url });
       setCrawledData(response.data);
     } catch (error) {
       console.error("There was an error fetching the data!", error);

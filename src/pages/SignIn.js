@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import icon from '../assets/smile.png';
-import api from '../services/api'; // API 서비스 임포트
-
+import api from '../services/api';
+import { AuthContext } from '../context/AuthContext';
 
 function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async () => {
     try {
-      console.log("Attempting login with:", { email, password }); // 수정: 요청 전 로그 추가
+      console.log("Attempting login with:", { email, password });
       const response = await api.post('/users/login', { email, password });
       console.log('Login response:', response.data);
 
-      // 로그인 성공 시 사용자 ID를 로컬 스토리지에 저장
-      localStorage.setItem('userId', response.data.userId);
+      // 로그인 성공 시 사용자 ID를 로컬 스토리지에 저장하고 상태 업데이트
+      login(response.data.userId);
 
       // 로그인 성공 시 HomePage로 이동
       navigate('/');
@@ -46,7 +46,6 @@ function SignIn() {
               placeholder="example@gachi.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-
             />
           </div>
           <div className="mb-6">
@@ -58,6 +57,7 @@ function SignIn() {
               id="password"
               type="password"
               placeholder="*****"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -65,7 +65,8 @@ function SignIn() {
             <button
               className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
               type="button"
-              onClick={handleLogin}>
+              onClick={handleLogin}
+            >
               로그인
             </button>
           </div>
