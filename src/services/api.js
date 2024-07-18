@@ -2,11 +2,12 @@ import axios from 'axios';
 
 // Axios 인스턴스를 생성하여 기본 설정을 구성합니다.
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api', // 백엔드 서버의 기본 URL
+    baseURL: 'http://localhost:5001/api', // 백엔드 서버의 기본 URL
     headers: {
         'Content-Type': 'application/json', // JSON 형식의 데이터를 사용합니다.
     },
 });
+
 
 api.interceptors.request.use(
     (config) => {
@@ -32,6 +33,5 @@ api.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-
 
 export default api;
